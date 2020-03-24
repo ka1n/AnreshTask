@@ -1,6 +1,5 @@
-﻿using DataAdapter.Models;
-using DataAdapter.Repository;
-using Ninject;
+﻿using DataAccess.Models;
+using DataAccess.Repository;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -9,7 +8,7 @@ namespace AnreshTaskWeb.Controllers
     public class PersonController : Controller
     {
         
-        private IPersonRepository personRepository;
+        private readonly IPersonRepository personRepository;
         
         public PersonController(IPersonRepository repository)
         {

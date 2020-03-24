@@ -158,7 +158,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\NinjectResolver.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Global.asax.cs">
@@ -225,9 +224,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAdapter\DataAdapter.csproj">
-      <Project>{c335ee5f-190b-452a-b68a-b38080c7b415}</Project>
-      <Name>DataAdapter</Name>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{69d857a0-066b-461f-9693-98cdc76194df}</Project>
+      <Name>DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,5 @@
-using AnreshTaskWeb.App_Start;
 using AnreshTaskWeb.Utils;
-using DataAdapter.Repository;
+using DataAccess.Repository;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Mvc;

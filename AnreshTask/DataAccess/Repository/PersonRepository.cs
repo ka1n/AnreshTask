@@ -1,14 +1,12 @@
 ﻿using Dapper;
-using DataAdapter.Models;
+using DataAccess.Models;
 using Npgsql;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Web;
 
-namespace DataAdapter.Repository
+namespace DataAccess.Repository
 {
     public class PersonRepository : IPersonRepository
     {

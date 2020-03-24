@@ -1,9 +1,10 @@
-﻿using DataAdapter.Repository;
+﻿using DataAccess.Repository;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace AnreshTaskWeb.Utils
 {
@@ -12,6 +13,7 @@ namespace AnreshTaskWeb.Utils
         public override void Load()
         {
             Bind<IPersonRepository>().To<PersonRepository>();
+            Unbind<ModelValidatorProvider>();
         }
     }
 }
