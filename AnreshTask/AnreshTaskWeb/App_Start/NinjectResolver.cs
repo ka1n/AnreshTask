@@ -30,7 +30,7 @@ namespace AnreshTaskWeb.App_Start
 
         private void AddBindings()
         {
-            this._kernel.Bind<IPersonRepository>().To<PersonRepository>(); // Registering Types    
+            this._kernel.Bind<IPersonRepository>().To<PersonRepository>(); // Registering Types   
         }
     }
 }

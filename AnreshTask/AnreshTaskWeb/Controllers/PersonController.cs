@@ -11,11 +11,9 @@ namespace AnreshTaskWeb.Controllers
         
         private IPersonRepository personRepository;
         
-        public PersonController()
+        public PersonController(IPersonRepository repository)
         {
-            IKernel ninjectKernel = new StandardKernel();
-            ninjectKernel.Bind<IPersonRepository>().To<PersonRepository>();
-            personRepository = ninjectKernel.Get<IPersonRepository>();
+            personRepository = repository;
         }
         // GET: Person
         public ActionResult Index()
