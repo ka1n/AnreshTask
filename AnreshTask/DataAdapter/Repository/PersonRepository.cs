@@ -1,21 +1,28 @@
-﻿using AnreshTaskWeb.Models;
-using Dapper;
+﻿using Dapper;
+using DataAdapter.Models;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
 
-namespace AnreshTaskWeb.Repository
+namespace DataAdapter.Repository
 {
-    public class PersonRepository : IPersonRepository<Person>
+    public class PersonRepository : IPersonRepository
     {
         private readonly string connectionString;
-
         public PersonRepository()
         {
-            connectionString = "User ID=a.kirillov;Password=qweqwe123;Host=localhost;Port=5432;Database=anresh;Pooling=true;";
+            connectionString = ConfigurationManager.ConnectionStrings[1].ToString();// "User ID=a.kirillov;Password=qweqwe123;Host=localhost;Port=5432;Database=anresh;Pooling=true;";
+
+            //var conString = targetDataBase.Equals("mssql") ? ConfigurationManager.ConnectionStrings["mssql"].ConnectionString : ConfigurationManager.ConnectionStrings["oracle"].ConnectionString;
+
+            //          < connectionStrings >
+            //< add name = "DefaultConnection" connectionString = "User ID=a.kirillov;Password=qweqwe123;Host=localhost;Port=5432;Database=anresh;Pooling=true;" ></ add >
+
+            // </ connectionStrings >
         }
 
         internal IDbConnection Connection
@@ -36,12 +43,12 @@ namespace AnreshTaskWeb.Repository
             }
         }
 
-        public IEnumerable<Person> FindAll()
+        public List<Person> FindAll()
         {
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Person>("SELECT id as Id, last_name as \"LastName\",first_name as \"FirstName\",patronymic,age FROM anresh.person");
+                return dbConnection.Query<Person>("SELECT id as Id, last_name as \"LastName\",first_name as \"FirstName\",patronymic,age FROM anresh.person").ToList();
             }
         }
 
@@ -50,7 +57,7 @@ namespace AnreshTaskWeb.Repository
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Person>("SELECT * FROM anresh.person WHERE id = @Id", new { Id = id }).FirstOrDefault();
+                return dbConnection.Query<Person>("SELECT id as Id, last_name as \"LastName\",first_name as \"FirstName\",patronymic,age FROM anresh.person WHERE id = @Id", new { Id = id }).FirstOrDefault();
             }
         }
 
@@ -71,5 +78,22 @@ namespace AnreshTaskWeb.Repository
                 dbConnection.Query("UPDATE anresh.person SET last_name = @LastName,  first_name  = @FirstName, patronymic= @Patronymic, age = @Age WHERE id = @Id", item);
             }
         }
+
+        #region IDisposable
+
+        public bool CanDispose { get; set; }
+
+        public void Dispose(bool force)
+        {
+            this.CanDispose = true;
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            if (Connection != null && this.CanDispose)
+                Connection.Dispose();
+        }
+        #endregion 
     }
 }
